@@ -1,0 +1,246 @@
+# sets up ntp, rpcbind, Java and mapr default user with standard password mapr123
+# Write unprovisioned instances here, so that Ansible is aware of host and can uninstall
+# This stays empty unless you want to remove a node
+
+# ALIASES does NOT work with ROLLING upgrades!
+[all]
+node1 ansible_host=10.250.51.141 ansible_user=root
+node2 ansible_host=10.250.51.142 ansible_user=root
+node3 ansible_host=10.250.51.143 ansible_user=root
+
+[unprovision]
+
+[common]
+node1
+node2
+node3
+
+[mapr-core]
+node1
+node2
+node3
+
+# Zookeeper
+[mapr-zookeeper]
+node1
+node2
+node3
+
+# Contains MapR FileServer (MFS)
+[mapr-fileserver]
+node1
+node2
+node3
+
+# Container Location DataBase
+[mapr-cldb]
+node1
+node2
+
+# Kafka API for MapR-Streams
+[mapr-kafka]
+node1
+node2
+node3
+
+# Gateway for Streams and MapR-DB
+[mapr-gateway]
+node1
+node2
+node3
+
+[mapr-mastgateway]
+node3
+
+# MapR Control System
+[mapr-mcs]
+node1
+
+# YARN resource manager
+[mapr-resourcemanager]
+node2
+node3
+
+# Contains YARN Node Manager
+[mapr-nodemanager]
+node1
+node2
+node3
+
+# Job History Server, IMPORTANT: only one
+[mapr-historyserver]
+node3
+
+# MySQL, required for Hive MetaStore and Oozie, IMPORTANT: only one
+[ext-mysql]
+node1
+
+# Spark on YARN
+[mapr-spark-yarn]
+node1
+node2
+node3
+
+# Spark ThriftServer
+[mapr-spark-thriftserver]
+node3
+
+# Spark HistoryServer
+[mapr-spark-historyserver]
+node2
+
+# NFS
+[mapr-nfs-v3]
+node1
+node2
+node3
+
+# MapR Fuse Posix Client Basic
+[mapr-posix-client-basic]
+#node1
+#node2
+#node3
+
+# MapR Fuse Posix Client Platinum
+[mapr-posix-client-platinum]
+
+
+# Apache Drill
+[mapr-drill-standalone]
+node1
+node2
+node3
+
+# Apache Drill
+[mapr-drill-yarn]
+
+# Flume
+[mapr-flume]
+#node1
+#node2
+#node3
+
+# HBase CLI
+[mapr-hbase-cli]
+node1
+node2
+node3
+
+# HBase REST and Thrift
+[mapr-hbase-thrift-rest]
+#node1
+
+# Hive CLI
+[mapr-hive-cli]
+node1
+node2
+node3
+
+# Hive Meta Store
+[mapr-hive-metastore]
+node1
+node2
+
+# Hive Server2
+[mapr-hive-server2]
+node1
+node2
+
+# Hive WebHCat
+[mapr-hive-webhcat]
+#node1
+
+# HttpFS
+[mapr-httpfs]
+node1
+node2
+
+[mapr-hue]
+node3
+
+# Sqoop1
+[mapr-sqoop1]
+#node1
+#node2
+#node3
+
+# Sqoop2 Server
+[mapr-sqoop2-server]
+#node2
+
+# Sqoop2 Client
+[mapr-sqoop2-client]
+#node1
+#node2
+#node3
+
+# Pig
+[mapr-pig]
+#node1
+#node2
+#node3
+
+# Oozie
+[mapr-oozie]
+#node2
+
+# File Migrate Service
+[mapr-filemigrate]
+#node3
+
+[mapr-impala-server]
+#node1
+#node2
+#node3
+
+[mapr-impala-catalog]
+#node1
+
+[mapr-impala-statestore]
+#node2
+
+[mapr-kafka-connect-jdbc]
+node2
+
+[mapr-kafka-rest]
+node1
+
+[mapr-kafka-ksql]
+node1
+node2
+node3
+
+[mapr-data-access-gateway]
+node3
+
+# CollectD
+[mapr-collectd:children]
+mapr-core
+
+# OpenTSDB
+[mapr-opentsdb]
+node1
+
+# Custom OpenTSDB, do NOT install on same node as mapr-opentsdb
+[mapr-opentsdb-custom]
+#node2
+
+# Grafana
+[mapr-grafana]
+node1
+
+# FluentD
+[mapr-fluentd:children]
+mapr-core
+
+# ElasticSearch
+[mapr-elasticsearch]
+node2
+node3
+
+# Kibana
+[mapr-kibana]
+node3
+
+
+

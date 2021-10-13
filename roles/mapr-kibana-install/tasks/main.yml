@@ -1,0 +1,19 @@
+---
+# Install MapR Kibana
+- name: Install mapr-kibana
+  package: name=mapr-kibana state=present
+#- name: Find Kibana Path
+#  find: paths="/opt/mapr/kibana/" patterns="kibana*" file_type=directory
+#  register: kibana_path_result
+#  failed_when: kibana_path_result.matched != 1
+- name: Get Kibana version
+  shell: cat /opt/mapr/kibana/kibanaversion
+  register: version_output
+  check_mode: no
+  changed_when: no
+# Bugfix for Kibana custom secure
+#- name: Fix for Kibana custom secure
+#  lineinfile:
+#    dest: "/opt/mapr/kibana/kibana-{{ version_output.stdout }}/bin/configure.sh"
+#    regexp: '\s*OPTS=\$\(getopt (.*)'
+#    line: '    OPTS=$(getopt -a -o chk:ln:p:suvC:E:P:R -l help -l nodeCount: -l nodePort: -l ES: -l kibanaPort: -l secure -l customSecure -l unsecure -l password: -l EC: -l R -l verifySsl -- "$@")'

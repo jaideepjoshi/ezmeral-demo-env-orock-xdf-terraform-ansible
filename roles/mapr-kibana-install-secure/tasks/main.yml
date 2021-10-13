@@ -1,0 +1,25 @@
+---
+#- name: Find Kibana Path
+#  find: paths="/opt/mapr/kibana/" patterns="kibana*" file_type=directory
+#  register: kibana_path_result
+#  failed_when: kibana_path_result.matched != 1
+- name: Get Kibana version
+  shell: cat /opt/mapr/kibana/kibanaversion
+  register: version_output
+  check_mode: no
+  changed_when: no
+- name: Copy Kibana files for Security
+  copy: src="{{ local_tmp_path }}/mapr_spyglass/es/{{ item.src }}" dest="/opt/mapr/kibana/kibana-{{ version_output.stdout }}/{{ item.dst }}" owner="{{ mapr_user }}" group="{{ mapr_group }}" mode="{{ item.mode }}"
+  with_items:
+  - src: sg/ca/es-root-ca.pem
+    dst: config/ca/
+    mode: "0600"
+  - src: sg/kibanaserver-usr-clientCombo.pem
+    dst: config/certs/
+    mode: "0600"
+  - src: sg/kibanaserver-usr-signed.pem
+    dst: config/certs/
+    mode: "0600"
+  - src: sg/kibanaserver-usr-private-key.pem
+    dst: config/certs/
+    mode: "0600"

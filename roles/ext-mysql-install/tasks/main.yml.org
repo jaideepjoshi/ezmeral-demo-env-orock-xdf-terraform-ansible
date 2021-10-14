@@ -20,6 +20,13 @@
   lineinfile: dest=/etc/mysql/mysql.conf.d/mysqld.cnf regexp="^bind-address" state=absent
   register: mysql_result
 
+- name: Ensure mysql is running and starts on boot
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  become: yes
+
 - name: Create `/root/.my.cnf`  with root password credentials
   template:
     src:  my.cnf.j2

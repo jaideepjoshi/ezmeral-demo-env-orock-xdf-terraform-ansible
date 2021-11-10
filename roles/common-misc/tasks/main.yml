@@ -2,10 +2,8 @@
 - name: Install misc stuff - Midnight commander, wget, Python MySQL, openssl
   vars:
     packages_Suse: ['mc', 'wget', 'python-mysql', 'openssl']
-    packages_RedHat: ['mc', 'wget', 'MySQL-python',
-                      'yum-utils', 'unzip', 'openssl',
-                      'syslinux', 'sdparm', 'hdparm',
-                      'redhat-lsb-core', 'lsof']
+    packages_RedHat: ['mc', 'wget', 'yum-utils', 'unzip', 'openssl',
+                      'syslinux', 'redhat-lsb-core', 'lsof']
     # syslinux-utils is for gethostip, libpython is required for collectd
     packages_Debian: ['mc',
                       'wget',
@@ -15,3 +13,24 @@
                       'libpython2.7']
   package: name={{ item }} state=present
   with_items: "{{ vars['packages_' + ansible_os_family] }}"
+
+- name: Install mysql python connector for RedHat
+  yum:
+    name: https://repo.mysql.com/yum/mysql-connectors-community/el/8/x86_64/mysql-connector-c++-8.0.17-1.el8.x86_64.rpm
+    disable_gpg_check: true
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Install sdparm for RedHat
+  yum:
+    name: https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/s/sdparm-1.10-10.el8.x86_64.rpm
+    disable_gpg_check: true
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Install hdparm for RedHat
+  yum:
+    name: http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/hdparm-9.54-2.el8.x86_64.rpm
+    disable_gpg_check: true
+    state: present
+  when: ansible_os_family == "RedHat"

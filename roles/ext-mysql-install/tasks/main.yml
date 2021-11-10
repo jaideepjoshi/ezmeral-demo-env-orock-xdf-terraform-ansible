@@ -1,5 +1,6 @@
 ---
 # Install MySQL
+# TODO compose mysqlpath variables
 - name: Install MySQL / MariaDB
   vars:
     packages_Suse: ['mariadb', 'mariadb-client', 'python-mysql']
@@ -8,51 +9,30 @@
   package: name={{ item }} state=present
   with_items: "{{ vars['packages_' + ansible_os_family] }}"
   register: mysql_result
-  
 - name: Remove localhost binding
   vars:
-    os_major_version: "{{ '_16' if ansible_os_family == 'Debian' and ansible_distribution_major_version == '16' else '' }}"
+    #    os_major_version: "{{ '_16' if ansible_os_family == 'Debian' and ansible_distribution_major_version == '16' else '' }}"
+    os_major_version: "{{ '' if ansible_os_family != 'Debian' else '_16' if ansible_distribution_major_version == '16' or ansible_distribution_major_version == '18' }}"
     mysqlpath_Suse: /etc/my.cnf
     mysqlpath_RedHat: /etc/my.cnf
     mysqlpath_Debian: /etc/mysql/my.cnf
     mysqlpath_Debian_16: /etc/mysql/mysql.conf.d/mysqld.cnf
-  #lineinfile: dest={{ vars['mysqlpath_' + ansible_os_family + os_major_version] }} regexp="^bind-address" state=absent
-  lineinfile: dest=/etc/mysql/mysql.conf.d/mysqld.cnf regexp="^bind-address" state=absent
-  register: mysql_result
+  lineinfile:
+    dest: "{{ vars['mysqlpath_' + ansible_os_family + os_major_version] }}"
+    regexp: "^bind-address"
+    state: absent
 
-- name: Ensure mysql is running and starts on boot
-  service:
-    name: mysql
-    state: started
-    enabled: yes
-  become: yes
-
-- name: Create `/root/.my.cnf`  with root password credentials
-  template:
-    src:  my.cnf.j2
-    dest: /root/.my.cnf
-    owner: root
-    mode: 0600
-  become: yes
-  register: mysql_result
-
-- name: Ensure mysql root password is updated for all root accounts
-  mysql_user:
-    name: root
-    host: "{{ item }}"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-    password: "admin123"
-    priv: '*.*:ALL,GRANT'
-    check_implicit_admin: true
-  loop:
-    - "{{ ansible_hostname }}"
-    - "{{ ansible_fqdn }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
-  become: yes
-  register: mysql_result
-
+- name: Disable ssl
+  vars:
+    os_major_version: "{{ '' if ansible_os_family != 'Debian' else '_16' if ansible_distribution_major_version == '16' or ansible_distribution_major_version == '18' }}"
+    mysqlpath_Suse: /etc/my.cnf
+    mysqlpath_RedHat: /etc/my.cnf
+    mysqlpath_Debian: /etc/mysql/my.cnf
+    mysqlpath_Debian_16: /etc/mysql/mysql.conf.d/mysqld.cnf
+  lineinfile:
+    dest: "{{ vars['mysqlpath_' + ansible_os_family + os_major_version] }}"
+    line: 'skip_ssl'
+    insertafter: '[mysqld]'
 
 - name: Start the mysqld service
   vars:

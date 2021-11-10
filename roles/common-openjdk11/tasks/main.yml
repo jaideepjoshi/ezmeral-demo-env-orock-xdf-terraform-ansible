@@ -1,0 +1,10 @@
+---
+- name: Install OpenJDK 11
+  vars:
+    packages_RedHat: ['java-11-openjdk',
+                      'java-11-openjdk-devel',
+                      'java-11-openjdk-headless']
+    packages_Debian: ['openjdk-11-jdk']
+    packages_Suse: ['java-11-openjdk', 'java-11-openjdk-devel']
+  package: name={{ item }} state=present
+  with_items: "{{ vars['packages_' + ansible_os_family] }}"

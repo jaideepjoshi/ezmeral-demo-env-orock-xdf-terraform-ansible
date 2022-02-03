@@ -4,6 +4,7 @@
   fetch: src="/opt/mapr/conf/{{ item }}" dest="{{ local_tmp_path }}/{{ item }}" flat=yes
   with_items:
   - maprserverticket
+  - cldb.key
 - name: Copy MapR keystores and truststores to local
   fetch: src="/opt/mapr/conf/{{ item }}" dest="{{ local_tmp_path }}/{{ item }}" flat=yes
   with_items:

@@ -57,9 +57,9 @@
 #    update_cache: yes
 #    validate_certs: yes
 #  when: ansible_os_family == 'Debian' and mapr_patch_url is defined
-- name: Update cache for Ubuntu
-  apt: update_cache=yes
-  when: ansible_os_family == 'Debian'
+#- name: Update cache for Ubuntu
+#  apt: update_cache=yes
+#  when: ansible_os_family == 'Debian'
 
 # Suse
 - name: Import RPM key for Suse

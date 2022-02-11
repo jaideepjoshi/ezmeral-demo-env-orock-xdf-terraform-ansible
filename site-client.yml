@@ -6,7 +6,7 @@
   hosts: common
   roles:
     - {role: common-oraclejdk18, when: jdk == 'oraclejdk'}
-    - {role: common-openjdk18, when: jdk == 'openjdk18'}
+    - {role: common-openjdk11, when: jdk == 'openjdk11'}
     - {role: common-mapruser, when: mapr_create_user}
     - common-rpcbind
     - common-ntp

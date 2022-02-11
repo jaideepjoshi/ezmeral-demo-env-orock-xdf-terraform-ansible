@@ -595,14 +595,6 @@
   # Configuration options for Kerberos integration for secured Hadoop clusters
   # ------------------------------------------------------------------------
   [[kerberos]]
-    {% if mapr_security == 'kerberos' %}
-    # Path to Hue's Kerberos keytab file
-    hue_keytab= /opt/mapr/conf/mapr.keytab
-    # Kerberos principal name for Hue
-    hue_principal={{ mapr_user }}/{{ ansible_fqdn }}@{{ mapr_kerberos_realm }}
-    # Path to kinit
-    kinit_path=/usr/bin/kinit
-    {% endif %}
 
   # Configuration options for using OAuthBackend (Core) login
   # ------------------------------------------------------------------------
@@ -832,7 +824,7 @@
       security_enabled=${security_enabled}
 
       # Security mechanism of authentication none/GSSAPI/MAPR-SECURITY
-      mechanism={{ 'GSSAPI' if mapr_security == 'kerberos' else '${mechanism}' }}
+      mechanism={{ '${mechanism}' }}
 
       # Enable mutual ssl authentication
       # mutual_ssl_auth=False
@@ -873,7 +865,7 @@
       security_enabled=${security_enabled}
 
       # Security mechanism of authentication none/GSSAPI/MAPR-SECURITY
-      # mechanism={{ 'GSSAPI' if mapr_security == 'kerberos' else '${mechanism}' }}
+      # mechanism={{ '${mechanism}' }}
       mechanism=${mechanism}
 
       # URL of the ResourceManager API
@@ -935,7 +927,7 @@
       security_enabled=${security_enabled}
 
       # Security mechanism of authentication none/GSSAPI/MAPR-SECURITY
-      mechanism={{ 'GSSAPI' if mapr_security == 'kerberos' else '${mechanism}' }}
+      mechanism={{ '${mechanism}' }}
 
     # HA support by specifying multiple clusters
     # e.g.
@@ -969,7 +961,7 @@
   ## remote_deployement_dir=/oozie/deployments/_$USER_-oozie-$JOBID-$TIME
 
   # Security mechanism of authentication none/GSSAPI/MAPR-SECURITY
-  mechanism={{ 'GSSAPI' if mapr_security == 'kerberos' else '${mechanism}' }}
+  mechanism={{ '${mechanism}' }}
   {% endif %}
 
 ###########################################################################
@@ -1212,7 +1204,7 @@
   security_enabled=${security_enabled}
 
   # Security mechanism of authentication none/GSSAPI/MAPR-SECURITY
-  mechanism={{ 'GSSAPI' if mapr_security == 'kerberos' else '${mechanism}' }}
+  mechanism={{ '${mechanism}' }}
   {% endif %}
 
 ###########################################################################
@@ -1257,7 +1249,7 @@
   ## thrift_transport=buffered
 
   # Security mechanism of authentication none/GSSAPI/MAPR-SECURITY
-  mechanism={{ 'GSSAPI' if mapr_security == 'kerberos' else '${mechanism}' }}
+  mechanism={{ '${mechanism}' }}
 
 
 ###########################################################################

@@ -28,11 +28,6 @@ IMPALA_SERVER_ARGS=" \
     -catalog_service_host=${CATALOG_SERVICE_HOST} \
     -be_port=${IMPALA_BACKEND_PORT} \
     -mem_limit=20% \
-{% if impala_security == "kerberos" %}
-    -kerberos_reinit_interval=60 \
-    -principal={{ mapr_user }}/{{ ansible_fqdn }}@{{ mapr_kerberos_realm }} \
-    -keytab_file=/opt/mapr/conf/mapr.keytab \
-{% endif %}
 "
 
 # These impact the state store daemon and can be optionally changed
@@ -40,11 +35,6 @@ IMPALA_STATE_STORE_ARGS=" \
     -log_dir=${IMPALA_LOG_DIR} \
     -state_store_port=${IMPALA_STATE_STORE_PORT} \
     -catalog_service_host=${CATALOG_SERVICE_HOST} \
-{% if impala_security == "kerberos" %}
-    -kerberos_reinit_interval=60 \
-    -principal={{ mapr_user }}/{{ ansible_fqdn }}@{{ mapr_kerberos_realm }} \
-    -keytab_file=/opt/mapr/conf/mapr.keytab \
-{% endif %}
 "
 
 IMPALA_CATALOG_ARGS=" \
@@ -52,11 +42,6 @@ IMPALA_CATALOG_ARGS=" \
     -state_store_port=${IMPALA_STATE_STORE_PORT} \
     -use_statestore \
     -state_store_host=${IMPALA_STATE_STORE_HOST} \
-{% if impala_security == "kerberos" %}
-    -kerberos_reinit_interval=60 \
-    -principal={{ mapr_user }}/{{ ansible_fqdn }}@{{ mapr_kerberos_realm }} \
-    -keytab_file=/opt/mapr/conf/mapr.keytab \
-{% endif %}
 "
 
 # for troubleshooting

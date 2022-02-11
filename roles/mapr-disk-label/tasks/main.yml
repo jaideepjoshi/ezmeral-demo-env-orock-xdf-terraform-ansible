@@ -1,0 +1,20 @@
+---
+
+- name: "Create labels"
+  become: true
+  become_user: '{{ mapr_user }}'
+  #  shell: "curl -k -X POST '{{ url }}/rest/label/add?label={{ item }}' --user {{ mapr_user }}:{{ mapr_passwd }}"
+  shell: "maprcli label add -label {{ item }}"
+  with_items: "{{ disk_labels.split(',') }}"
+  register: command_result
+  failed_when:
+    - "'has already been registered' not in command_result.stdout"
+    - "'has already been registered' not in command_result.stdout_lines"
+
+#- name: Debug
+#  debug:
+#    msg: "curl -k -X POST '{{ url }}/rest/label/add?label={{ item }}' --user {{ mapr_user }}:{{ mapr_passwd }}"
+#  with_items: "{{ disk_labels.split(',') }}"
+
+- include: label-disk.yml disk={{ item }}
+  with_items: "{{ disks.split(',') }}"

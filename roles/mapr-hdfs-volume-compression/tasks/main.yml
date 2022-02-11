@@ -1,0 +1,5 @@
+- name: Setcompression off for the volume
+  become: true
+  become_user: '{{ mapr_user }}'
+  #  shell: "curl -k -X POST '{{ url }}/rest/disk/setlabel?label={{ 'hdd' if label == '1' else 'nvme' if label == '0' }}&host={{ ansible_fqdn }}&disks={{ disk }}' --user {{ mapr_user }}:{{ mapr_passwd }}"
+  shell: "hadoop mfs -setcompression off /vel"

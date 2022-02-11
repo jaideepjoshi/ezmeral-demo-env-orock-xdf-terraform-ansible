@@ -18,7 +18,6 @@ The scripts support:
 * Aborted scripts can always re-run.
 * Building Zeppelin
 * Install MapR-Client
-* Setting up Kerberos and generate Keytabs (only Redhat)
 * Ansible modules to manage state of:
     * MapR volumes
     * MapR schedules
@@ -46,7 +45,6 @@ https://mapr.com/docs/61/InteropMatrix/r_os_matrix_6.x.html
 
 * Unsecure mode
 * MapR Native Security incl. Ecosystem Components
-* Kerberos incl. Ecosystem Components
 
 ## Supported Databases
 
@@ -132,42 +130,6 @@ Run:
 
 ```
 ansible-playbook -i hosts_template helper/create-user-ace.yml
-```
-
-### Setup Kerberos, SSSD and PAM with ActiveDirectory (Only tested on Redhat 7.3 and 7.4!!!)
-
-Use `host_templates/hosts_kerberos` as template
-
-```
-ansible-playbook -i host_templates/hosts_kerberos sites/ext-kerberos-sssd-setup.yml
-```
-
-Afterwards authenticate with users from AD.
-
-### Create Kerberos users in Active Directory for MapR
-
-Based on number of hosts users are created in AD.
-
-```
-ansible-playbook -i host_templates/hosts_kerberos sites/ext-kerberos-createadusers.yml
-```
-
-### Generate keytabs based on created users in command above.
-
-Keytabs are stored in folder defined in mapr_kerberos_local_keytabs_dir on ansible client machine
-
-```
-ansible-playbook -i host_templates/hosts_kerberos sites/ext-kerberos-keytabs-ad-generate.yml
-```
-
-
-### Verify keytabs which are the base for MapR installation
-
-Keytabs are stored in folder defined in mapr_kerberos_local_keytabs_dir on ansible client machine.
-When the customer delivers keytabs this can be also used to validate.
-
-```
-ansible-playbook -i host_templates/hosts_kerberos sites/ext-kerberos-keytabs-verify.yml
 ```
 
 ## Use Ansible modules for administrative tasks

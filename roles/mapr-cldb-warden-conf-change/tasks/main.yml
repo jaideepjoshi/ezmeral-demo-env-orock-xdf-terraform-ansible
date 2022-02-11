@@ -1,0 +1,13 @@
+---
+
+- name: Changes to warden.conf on CLDB nodes
+  lineinfile:
+    path: /opt/mapr/conf/warden.conf
+    search_string: "{{ item.regexp }}"
+    line: "{{ item.replace }}"
+    state: present
+  with_items:
+    - { regexp: '#?service.command.mfs.heapsize.percent.*', replace: 'service.command.mfs.heapsize.percent=35' }
+    - { regexp: '#?service.command.mfs.heapsize.maxpercent.*', replace: 'service.command.mfs.heapsize.maxpercent=85' }
+    - { regexp: '#?service.command.mfs.heapsize.min.*', replace: 'service.command.mfs.heapsize.min=512' }
+

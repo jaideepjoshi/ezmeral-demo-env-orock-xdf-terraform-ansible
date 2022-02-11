@@ -1,0 +1,27 @@
+---
+
+- name: Determine disk's label
+  shell: "cat /sys/block/{{ disk.split('/')[-1] }}/queue/rotational"
+  register: result
+
+- set_fact:
+    label: "{{ result.stdout }}"
+
+- name: "Mark {{ disk }} with label {{ label }}"
+  become: true
+  become_user: '{{ mapr_user }}'
+#  shell: "curl -k -X POST '{{ url }}/rest/disk/setlabel?label={{ 'hdd' if label == '1' else 'nvme' if label == '0' }}&host={{ ansible_fqdn }}&disks={{ disk }}' --user {{ mapr_user }}:{{ mapr_passwd }}"
+  shell: "maprcli disk setlabel -host {{ ansible_fqdn }} -disks {{ disk }} -label {{ 'hdd' if label == '1' else 'nvme' if label == '0' }} -json"
+  register: command_result
+  failed_when:
+    - "'Error 17' not in command_result.stdout"
+    - "'Error 17' not in command_result.stdout_lines"
+
+#- name: Debug
+#  debug:
+#    msg:
+#      - "{{ ansible_fqdn }}"
+#      - "{{ d }}"
+#      - "{{ label }}"
+#      - "maprcli disk setlabel -host {{ ansible_fqdn }} -disks {{ disk }} -label {{ 'hdd' if label == '1' else 'nvme' if label == '0' }} -json"
+#      - "curl -k -X POST {{ url }}/rest/disk/setlabel?label={{ 'hdd' if label == '1' else 'nvme' if label == '0' }}&disks={{ disk }} --user {{ mapr_user }}:{{ mapr_passwd }}"

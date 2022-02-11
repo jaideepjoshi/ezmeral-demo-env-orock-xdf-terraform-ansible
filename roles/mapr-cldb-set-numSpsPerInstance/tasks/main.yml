@@ -1,0 +1,13 @@
+---
+
+- name: Populate nodes
+  set_fact:
+    nodes: "{{ hosts|default([]) + [ hostvars[item]['ansible_facts']['fqdn'] ] }}"
+  with_items: "{{ groups['mapr-core'] }}"
+
+- include: set_numSpsPerInstance.yml
+  with_items: "{{ nodes }}"
+
+- name: maprcli config save -values {multimfs.numinstances.pernode:4}
+  shell: maprcli config save -values {multimfs.numinstances.pernode:4}
+

@@ -1,0 +1,15 @@
+---
+
+- name: Changes to mastgateway.conf
+  lineinfile:
+    path: /opt/mapr/conf/mastgateway.conf
+    search_string: "{{ item.regexp }}"
+    line: "{{ item.replace }}"
+    state: present
+  with_items:
+    - { regexp: '#?smastgateway.cntr.worker.numthreads.*', replace: 'mastgateway.cntr.worker.numthreads=32' }
+
+- name: Save config
+  become: true
+  become_user: '{{ mapr_user }}'
+  shell: maprcli config save -values {"cldb.mastgateway.num.offload.vouchers":"1"}

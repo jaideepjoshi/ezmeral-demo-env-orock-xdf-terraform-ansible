@@ -1,19 +1,17 @@
-# mapr_release_url: http://package.mapr.com/releases/v6.2.0
-mapr_release_url: http://jai-ecp-demo-externaldf-host-1.demo.com/xdf700
-# mapr_ecosystem_url: http://package.mapr.com/releases/MEP/MEP-8.0.0/
-mapr_ecosystem_url: http://jai-ecp-demo-externaldf-host-1.demo.com/eep810
+mapr_release_url: http://package.mapr.com/releases/v6.2.0
+mapr_ecosystem_url: http://package.mapr.com/releases/MEP/MEP-7.0.1/
 mapr_gpg_url: http://package.mapr.com/releases/pub/maprgpg.key
 mapr_gpg_check: yes
 
 # JDK choose: openjdk11 or oraclejdk18
 jdk: openjdk11
-# jdk_folder: /opt/java/jdk1.8.0_111
+#jdk_folder: /opt/java/jdk1.8.0_111
 # redhat openjdk java path
 jdk_folder: /usr/lib/jvm/java-11-openjdk-11.0.3.7-0.el7_6.x86_64
 oracle_jdk_url: http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz
 use_ntp: True
 
-hadoop_version: 2.7.6
+hadoop_version: 2.7.4
 cluster_name: demo.mapr.com
 # required when aborted in wrong stage or changing security type
 force_zookeeper_restart: True
@@ -51,7 +49,7 @@ yarn_spark_shuffle: True
 
 ####### Enable security features ##########
 # Default value for all components: mapr core and ecosystem
-# Options: none, maprsasl, kerberos
+# Options: none, maprsasl
 security_all: maprsasl
 
 # Custom SSL certificates for all components. Certificates must be <fqdn>.pem in given folder. No password in certicates supported, use ansible-vault.
@@ -66,35 +64,29 @@ https_custom_certs_force_update: True
 security_encryption_rest: True
 
 # MapR-Core security
-# Options: none, maprsasl, kerberos
+# Options: none, maprsasl
 mapr_security: "{{ security_all }}"
-
-# Additional information for Kerberos
-mapr_kerberos_realm: PS.MAPR.COM
-mapr_kerberos_local_keytabs_dir: /mnt/c/Projects/keytabs
-# This is a wrkaround, since CLDB uses always mapr-user 'mapr' in CLDB principal, don't change
-mapr_user_cldb_principal: mapr
 
 # Will delete existing keys (cldb.key, maprserverticket, ssl_truststore, ssl_keystore) and generate new one: true /false
 
-# Impala security: none, kerberos
+# Impala security: none
 impala_security: none
 
-# Hive security: none, maprsasl, pam or kerberos
+# Hive security: none, maprsasl, pam
 hive_server_security: "pam"
 hive_metastore_security: "{{ security_all }}"
 hive_server_ui_ssl: True
 hive_server_jdbc_ssl: False
-# Drill security (only standalone): none, maprsasl, kerberos
+# Drill security (only standalone): none, maprsasl
 drill_security: "{{ security_all }}"
-# HBase REST/Thrift: none, kerberos, maprsasl
+# HBase REST/Thrift: none, maprsasl
 hbase_thrift_rest_security: "{{ security_all }}"
-# HttpFS: none, maprsasl, kerberos
+# HttpFS: none, maprsasl
 httpfs_security: "{{ security_all }}"
-# Oozie: none, maprsasl, kerberos
+# Oozie: none, maprsasl
 oozie_security: "{{ security_all }}"
 oozie_ssl: True
-# Sqoop2: none, maprsasl, kerberos
+# Sqoop2: none, maprsasl
 sqoop_security: "{{ security_all }}"
 # Spark settings, enable only on secure cluster, otherwise installation fails
 spark_authenticate: True
@@ -180,9 +172,13 @@ oozie_smtp_password:
 # mapr_passwd: $6$X4.bqoTK$RTAwnhg2BG/y.3Dugw9Vc31ZdXFsZAitwKtKuu3HgKSNutcQmZ7zLy4cXasivlv2gKD8QGouAjND5fU7H.HDW0
 # passwd is mapr
 mapr_passwd: $6$GzlcP5ei$E6P9QM40O6KJFLZ3wMcg3jzQBNxGXrf8yc77CbCmf0KtFSxK0mpCParhc3WVNEAm4fHKPAqyRV9rsiF6DAFlW0
+mapr_user_passwd: m0bil3
 
-disks: /dev/sdb
-disk_storage_pool_size: 1
+#disks: /dev/nvme1n1,/dev/nvme2n1,/dev/nvme3n1
+disks: /dev/sdb,/dev/sdc
+#disks: /dev/sdb
+disk_storage_pool_size: 2
+disk_labels: hdd,nvme
 
 # Third party components
 zeppelin_version: 0.7.3

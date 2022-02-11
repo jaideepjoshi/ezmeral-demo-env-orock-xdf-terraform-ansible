@@ -39,5 +39,7 @@
     - {role: ../roles/mapr-spark-yarn-shuffle-retrieve, when: yarn_spark_shuffle }
 - name: Upload Spark Shuffle Sort JAR to all YARN node managers
   hosts: mapr-nodemanager
+  vars:
+    num_spark_hosts: "{{ groups['mapr-spark-yarn']|length }}"
   roles:
-    - {role: ../roles/mapr-spark-yarn-shuffle-distribute, when: yarn_spark_shuffle }
+    - {role: ../roles/mapr-spark-yarn-shuffle-distribute, when: yarn_spark_shuffle and num_spark_hosts != '0'}

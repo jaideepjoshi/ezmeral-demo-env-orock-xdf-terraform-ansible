@@ -47,24 +47,6 @@
 - name: Configure hue.ini
   template: src=hue.ini dest="/opt/mapr/hue/hue-{{ version_output.stdout }}/desktop/conf/hue.ini" mode="0600" owner="{{ mapr_user }}" group="{{ mapr_group }}"
 
-# WORKAROUND START Create crontab to create Kerberos Cache for HUE
-# TODO add bug number
-- name: Initial Hue Kerberos Cache Creation
-  shell: "kinit -k -t /opt/mapr/conf/mapr.keytab -c /tmp/hue_krb5_ccache {{ mapr_user }}/{{ ansible_fqdn }}@{{ mapr_kerberos_realm }}"
-  become: true
-  become_user: "{{ mapr_user }}"
-  when: mapr_security == 'kerberos'
-- name: Create crontab to refresh Hue Kerberos Cache
-  cron:
-    name: "Refresh Hue Kerberos Cache"
-    minute: "0"
-    hour: "23"
-    job: "kinit -k -t /opt/mapr/conf/mapr.keytab -c /tmp/hue_krb5_ccache {{ mapr_user }}/{{ ansible_fqdn }}@{{ mapr_kerberos_realm }}"
-    user: "{{ mapr_user }}"
-  when: mapr_security == 'kerberos'
-
-# WORKAROUND END
-
 #- name: Find Hue Livy Path
 #  find: paths="/opt/mapr/livy/" patterns="livy*" file_type=directory
 #  register: hue_livy_path_result
@@ -166,5 +148,4 @@
     MAPR_TICKETFILE_LOCATION: /opt/mapr/conf/mapruserticket
   when: hue_result.changed
 
-  # http://maprdocs.mapr.com/home/Hue/ConfigureHuetouseKerberosYARN.html
   # http://maprdocs.mapr.com/home/Hue/ConfigureDBsforHueStorage.html

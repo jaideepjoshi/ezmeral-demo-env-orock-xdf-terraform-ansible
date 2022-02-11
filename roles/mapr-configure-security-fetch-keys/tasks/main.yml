@@ -5,15 +5,34 @@
   with_items:
   - maprserverticket
   - cldb.key
-- name: Copy MapR keystores and truststores to local
+- name: Copy MapR keystores truststores to local
   fetch: src="/opt/mapr/conf/{{ item }}" dest="{{ local_tmp_path }}/{{ item }}" flat=yes
   with_items:
   - ssl_keystore
   - ssl_keystore.pem
   - ssl_keystore.p12
+  - ssl_keystore.csr
+  - ssl_keystore-signed.pem
   - ssl_truststore
   - ssl_truststore.pem
   - ssl_truststore.p12
+  - ssl-server.xml
+  - ssl-client.xml
+  - ssl_userkeystore
+  - ssl_userkeystore.csr
+  - ssl_userkeystore.p12
+  - ssl_userkeystore.pem
+  - ssl_userkeystore-signed.pem
+  - ssl_usertruststore
+  - ssl_usertruststore.p12
+  - ssl_usertruststore.pem
+  when: not https_custom_certs_enabled
+- name: Copy MapR CA to local
+  fetch: src="/opt/mapr/conf/ca/{{ item }}" dest="{{ local_tmp_path }}/ca/{{ item }}" flat=yes
+  with_items:
+  - chain-ca.pem
+  - root-ca.pem
+  - signing-ca.pem
   when: not https_custom_certs_enabled
 - name: Copy DARE master key to local
   fetch: src=/opt/mapr/conf/dare.master.key dest="{{ local_tmp_path }}/dare.master.key" flat=yes

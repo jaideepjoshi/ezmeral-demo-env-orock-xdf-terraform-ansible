@@ -1,0 +1,27 @@
+---
+
+- name: Create volume
+  become: true
+  become_user: '{{ mapr_user }}'
+#  shell: "maprcli volume create -name vel -path /vel --containerallocationfactor 40 -type rw -ecenable true -ecscheme '8+4' -eclabel hdd -label hdd -nslabel hdd  -tieringenable true -dare false -json"
+  shell: "maprcli volume create -name vel -path /vel --containerallocationfactor 40 -type rw -ecenable true -ecscheme \"8+4\" -eclabel hdd -label nvme -nslabel nvme  -tieringenable true -dare false -json"
+#  shell: "curl -k -X POST '{{ url }}/rest/volume/create?name=\"vel\"&path=/vel&containerallocationfactor=40&type=rw&ecenable=true&ecscheme=\"8+4\"&eclabel=hdd&label=hdd&nslabel=hdd&tieringenable=true&dare=false' --user {{ mapr_user }}:{{ mapr_passwd }}"
+#  shell: "curl -k -X POST '{{ url }}/rest/volume/create?name=\"vel\"&path=/vel&containerallocationfactor=40&type=rw&ecenable=true&ecscheme=\"8+4\"&eclabel=hdd&label=nvme&nslabel=nvme&tieringenable=true&dare=false' --user {{ mapr_user }}:{{ mapr_passwd }}"
+
+#- name: Debug
+#  debug:
+#    msg: "curl -k -X POST '{{ url }}/rest/volume/create?name=vel&path=/vel&containerallocationfactor=40&type=rw&ecenable=true&ecscheme=8%2b4&eclabel=hdd&label=nvme&nslabel=nvme&tieringenable=true&dare=false' --user {{ mapr_user }}:{{ mapr_passwd }}"
+#  with_items: "{{ disk_labels.split(',') }}"
+
+
+- name: Disable data at wire encription
+  become: true
+  become_user: '{{ mapr_user }}'
+  shell: "maprcli volume modify -name vel -wiresecurityenabled false"
+#  shell: "curl -k -X POST '{{ url }}/rest/volume/modify?name=vel&wiresecurityenabled=false' --user {{ mapr_user }}:{{ mapr_passwd }}"
+#  shell: "curl -k -X POST '{{ url }}/rest/volume/modify?name=vel&wiresecurityenabled=false' --user {{ mapr_user }}:{{ mapr_passwd }}"
+
+#- name: Debug
+#  debug:
+#    msg: "curl -k -X POST '{{ url }}/rest/volume/modify?name=vel&wiresecurityenabled=false' --user {{ mapr_user }}:{{ mapr_passwd }}"
+#  with_items: "{{ disk_labels.split(',') }}"

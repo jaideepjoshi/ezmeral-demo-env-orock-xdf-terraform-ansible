@@ -7,10 +7,6 @@
   register: impala_path_result
   failed_when: impala_path_result.matched != 1
 
-- name: Copy mapr.keytab to host
-  copy: src="{{ mapr_kerberos_local_keytabs_dir }}/{{ ansible_fqdn }}.keytab" dest=/opt/mapr/conf/mapr.keytab group="{{ mapr_group }}" owner="{{ mapr_user }}" mode=0600
-  when: impala_security == 'kerberos'
-
 - name: Configure env.sh
   template: src=env.sh dest="{{ impala_path_result.files[0].path }}/conf/env.sh"
 

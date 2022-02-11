@@ -1,6 +1,6 @@
 ---
-- name: Enable customer security by creating /opt/mapr/conf/.customSecure
-  file: path=/opt/mapr/conf/.customSecure state=touch mode=0644
+#- name: Enable customer security by creating /opt/mapr/conf/.customSecure
+#  file: path=/opt/mapr/conf/.customSecure state=touch mode=0644
 - name: Copy MapR keys to all nodes
   copy: src="{{ local_tmp_path }}/{{ item.filename }}" dest="/opt/mapr/conf/{{ item.filename }}" mode="{{ item.mode }}" owner="{{ mapr_user }}" group="{{ mapr_group }}"
   with_items:
@@ -17,16 +17,57 @@
     mode: "0400"
   - filename: ssl_keystore.p12
     mode: "0400"
+  - filename: ssl_keystore.csr
+    mode: "0400"
+  - filename: ssl_keystore-signed.pem
+    mode: "0400"
   - filename: ssl_truststore
     mode: "0444"
   - filename: ssl_truststore.pem
     mode: "0444"
   - filename: ssl_truststore.p12
     mode: "0444"
+  - filename: ssl-client.xml
+    mode: "0644"
+  - filename: ssl-server.xml
+    mode: "0640"
+  - filename: ssl_userkeystore
+    mode: "0400"
+  - filename: ssl_userkeystore.csr
+    mode: "0400"
+  - filename: ssl_userkeystore.p12
+    mode: "0400"
+  - filename: ssl_userkeystore.pem
+    mode: "0400"
+  - filename: ssl_usertruststore
+    mode: "0444"
+  - filename: ssl_usertruststore.p12
+    mode: "0444"
+  - filename: ssl_usertruststore.pem
+    mode: "0444"
+  when: not https_custom_certs_enabled
+- name: Create a CA directory if it does not exist
+  file:
+    path: /opt/mapr/conf/ca
+    state: directory
+    mode: '0755'
+  when: not https_custom_certs_enabled
+- name: Copy MapR CA to all nodes
+  copy: src="{{ local_tmp_path }}/ca/{{ item.filename }}" dest="/opt/mapr/conf/ca/{{ item.filename }}" mode="{{ item.mode }}" owner="{{ mapr_user }}" group="{{ mapr_group }}"
+  with_items:
+    - filename: chain-ca.pem
+      mode: "0644"
+    - filename: root-ca.pem
+      mode: "0644"
+    - filename: signing-ca.pem
+      mode: "0644"
   when: not https_custom_certs_enabled
 - name: Copy DARE master key
   copy: src="{{ local_tmp_path }}/dare.master.key" dest="/opt/mapr/conf/dare.master.key" owner="{{ mapr_user }}" group="{{ mapr_group }}" mode="0600"
   when: security_encryption_rest
+- name: Copy ssl-server.xml to hadoop conf dir
+  copy: src="{{ local_tmp_path }}/ssl-server.xml" dest="/opt/mapr/hadoop/hadoop-{{ hadoop_version }}/etc/hadoop/"
+  when: not https_custom_certs_enabled
 # copy to other nodes
 # run configure on other nodes
 - name: Configure.sh secure

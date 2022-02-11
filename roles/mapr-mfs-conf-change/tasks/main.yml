@@ -1,0 +1,13 @@
+---
+
+- name: Changes to mfs.conf
+  lineinfile:
+    path: /opt/mapr/conf/mfs.conf
+    search_string: "{{ item.regexp }}"
+    line: "{{ item.replace }}"
+    state: present
+  with_items:
+    - { regexp: '#?mfs.ssd.trim.enabled.*', replace: 'mfs.ssd.trim.enabled=1' }
+    - { regexp: '#?mfs.disk.iothrottle.count.*', replace: 'mfs.disk.iothrottle.count=50000' }
+    - { regexp: '#?mfs.disk.is.ssd.*', replace: 'mfs.disk.is.ssd=1' }
+    - { regexp: '#?mfs.numrpcthreads.*', replace: 'mfs.numrpcthreads=4' }

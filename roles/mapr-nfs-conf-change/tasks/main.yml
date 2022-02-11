@@ -1,0 +1,7 @@
+---
+- name: Changes to nfsserver.conf
+  lineinfile:
+    path: /opt/mapr/conf/nfsserver.conf
+    search_string: "#?NumRpcThreads.*"
+    line: "NumRpcThreads=4"
+    state: present

@@ -30,7 +30,7 @@
 
 - name: Install hdparm for RedHat
   yum:
-    name: http://vault.centos.org/centos/8/BaseOS/x86_64/os/Packages/hdparm-9.54-4.el8.x86_64.rpm
+    name: http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/hdparm-9.54-2.el8.x86_64.rpm
     disable_gpg_check: true
     state: present
   when: ansible_os_family == "RedHat"

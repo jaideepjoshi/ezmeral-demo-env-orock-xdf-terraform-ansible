@@ -1,0 +1,450 @@
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Apply common configuration to all nodes] *********************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Precheck] ****************************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup MapR repositories] *************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall NFS v3] ********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall mapr-posix-client-basic (FUSE)] ********************************
+skipping: no hosts matched
+
+PLAY [Uninstall mapr-posix-client-platinum (FUSE)] *****************************
+skipping: no hosts matched
+
+PLAY [Setup global vars] *******************************************************
+skipping: no hosts matched
+
+PLAY [Install MapR Core] *******************************************************
+skipping: no hosts matched
+
+PLAY [Install Zookeeper] *******************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Zookeeper] *****************************************************
+skipping: no hosts matched
+
+PLAY [Count Zookeeper changes] *************************************************
+skipping: no hosts matched
+
+PLAY [Install CLDB] ************************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall CLDB] **********************************************************
+skipping: no hosts matched
+
+PLAY [Count CLDB changes] ******************************************************
+skipping: no hosts matched
+
+PLAY [Install Gateway] *********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Gateway] *******************************************************
+skipping: no hosts matched
+
+PLAY [Install MAST-Gateway] ****************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall MAST-Gateway] **************************************************
+skipping: no hosts matched
+
+PLAY [Install MapR-Fileserver] *************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall MapR-Fileserver] ***********************************************
+skipping: no hosts matched
+
+PLAY [Install YARN Node Manager] ***********************************************
+skipping: no hosts matched
+
+PLAY [Uninstall YARN Node Manager] *********************************************
+skipping: no hosts matched
+
+PLAY [Install YARN Resource Manager] *******************************************
+skipping: no hosts matched
+
+PLAY [Uninstall YARN Resource Manager] *****************************************
+skipping: no hosts matched
+
+PLAY [Install History Server] **************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall History Server] ************************************************
+skipping: no hosts matched
+
+PLAY [Count Historyserver changes] *********************************************
+skipping: no hosts matched
+
+PLAY [Install MCS] *************************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall MCS] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Install NFS v3] **********************************************************
+skipping: no hosts matched
+
+PLAY [Configure with genkeys (native-security)] ********************************
+skipping: no hosts matched
+
+PLAY [Fetch keys, when no CLDB change happened] ********************************
+skipping: no hosts matched
+
+PLAY [Roll out custom SSL certificates] ****************************************
+skipping: no hosts matched
+
+PLAY [Configure and start (unsecure)] ******************************************
+skipping: no hosts matched
+
+PLAY [Configure and start (native-security)] ***********************************
+skipping: no hosts matched
+
+PLAY [Disk setup] **************************************************************
+skipping: no hosts matched
+
+PLAY [Restarting mapr-zookeeper (rolling)] *************************************
+skipping: no hosts matched
+
+PLAY [Restarting mapr-zookeeper] ***********************************************
+skipping: no hosts matched
+
+PLAY [Restarting mapr-warden (rolling)] ****************************************
+skipping: no hosts matched
+
+PLAY [Restarting mapr-warden on CLDB nodes (rolling)] **************************
+skipping: no hosts matched
+
+PLAY [Restarting mapr-warden] **************************************************
+skipping: no hosts matched
+
+PLAY [Install mapr-posix-client-basic (FUSE)] **********************************
+skipping: no hosts matched
+
+PLAY [Install mapr-posix-client-platinum (FUSE)] *******************************
+skipping: no hosts matched
+
+PLAY [Install MySQL] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall MySQL] *********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Kafka] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Kafka] *********************************************************
+skipping: no hosts matched
+
+PLAY [Install Kafka Connect JDBC] **********************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Kafka Connect JDBC] ********************************************
+skipping: no hosts matched
+
+PLAY [Install Kafka REST] ******************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Kafka REST] ****************************************************
+skipping: no hosts matched
+
+PLAY [Install Kafka KSQL] ******************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Kafka KSQL] ****************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup Zookeeper String] **************************************************
+skipping: no hosts matched
+
+PLAY [Install Drill Standalone] ************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Drill Standalone] **********************************************
+skipping: no hosts matched
+
+PLAY [Install Drill on YARN] ***************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Drill on YARN] *************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Flume] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Flume] *********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup Zookeeper String] **************************************************
+skipping: no hosts matched
+
+PLAY [Install HBase CLI] *******************************************************
+skipping: no hosts matched
+
+PLAY [Install HBase REST and Thrift Server] ************************************
+skipping: no hosts matched
+
+PLAY [Uninstall HBase REST and Thrift Server] **********************************
+skipping: no hosts matched
+
+PLAY [Uninstall HBase CLI] *****************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup Hive Variables] ****************************************************
+skipping: no hosts matched
+
+PLAY [Install Hive CLI] ********************************************************
+skipping: no hosts matched
+
+PLAY [Install Hive MetaStore] **************************************************
+skipping: no hosts matched
+
+PLAY [Install Hive Server 2] ***************************************************
+skipping: no hosts matched
+
+PLAY [Install Hive WebHCat] ****************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Hive WebHCat] **************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Hive Server 2] *************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Hive MetaStore] ************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Hive CLI] ******************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Pig] *************************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Pig] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Impala Vars] *****************************************************
+skipping: no hosts matched
+
+PLAY [Install Impala] **********************************************************
+skipping: no hosts matched
+
+PLAY [Install Impala Catalog] **************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Impala Catalog] ************************************************
+skipping: no hosts matched
+
+PLAY [Install Impala StateStore] ***********************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Impala StateStore] *********************************************
+skipping: no hosts matched
+
+PLAY [Install Impala Server] ***************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Impala Server] *************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Impala] ********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Sqoop] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Sqoop] *********************************************************
+skipping: no hosts matched
+
+PLAY [Set Sqoop 2 Server Vars] *************************************************
+skipping: no hosts matched
+
+PLAY [Install Sqoop 2 Server] **************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Sqoop 2 Server] ************************************************
+skipping: no hosts matched
+
+PLAY [Install Sqoop 2 Client] **************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Sqoop 2 Client] ************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install HttpFS] **********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall HttpFS] ********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup Zookeeper String] **************************************************
+skipping: no hosts matched
+
+PLAY [Setup Hive Variables] ****************************************************
+skipping: no hosts matched
+
+PLAY [Install Spark on YARN] ***************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Spark on YARN] *************************************************
+skipping: no hosts matched
+
+PLAY [Install Spark Thrift Server] *********************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Spark Thrift Server] *******************************************
+skipping: no hosts matched
+
+PLAY [Install Spark History Server] ********************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Spark History Server] ******************************************
+skipping: no hosts matched
+
+PLAY [Get Spark Shuffle Sort JAR from first Spark node] ************************
+skipping: no hosts matched
+
+PLAY [Upload Spark Shuffle Sort JAR to all YARN node managers] *****************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup Zookeeper String] **************************************************
+skipping: no hosts matched
+
+PLAY [Set Oozie Vars] **********************************************************
+skipping: no hosts matched
+
+PLAY [Install Oozie] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Oozie] *********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Filemigrate] *****************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Filemigrate] ***************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Install Data Access Gateway] *********************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Data Access Gateway] *******************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Setup Hue Vars] **********************************************************
+skipping: no hosts matched
+
+PLAY [Install Hue] *************************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall Hue] ***********************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Uninstall MapR Core] *****************************************************
+skipping: no hosts matched
+
+PLAY [Unregister node vars] ****************************************************
+skipping: no hosts matched
+
+PLAY [Unregister node vars] ****************************************************
+skipping: no hosts matched
+
+PLAY [Group vars] **************************************************************
+skipping: no hosts matched
+
+PLAY [Make MCS url] ************************************************************
+skipping: no hosts matched
+
+PLAY [Label disks] *************************************************************
+skipping: no hosts matched
+
+PLAY [Create a volume with maprcli command with tiering enable and disable data at wire encription] ***
+skipping: no hosts matched
+
+PLAY [Setcompression off for the volume.] **************************************
+skipping: no hosts matched
+
+PLAY [Changes to mfs.conf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Update RPC threads for NFS server] ***************************************
+skipping: no hosts matched
+
+PLAY [Changes to warden.conf on datanodes] *************************************
+skipping: no hosts matched
+
+PLAY [Changes to mastgateway.conf] *********************************************
+skipping: no hosts matched
+
+PLAY [Changes to warden.conf on CLDB nodes] ************************************
+skipping: no hosts matched
+
+PLAY [Set numSpsPerInstance=1] *************************************************
+skipping: no hosts matched
+
+PLAY [Save multimfs config] ****************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+

@@ -4,4 +4,5 @@
 - import_playbook: sites/mapr-core.yml
 - import_playbook: sites/mapr-mep-all.yml
 - import_playbook: sites/mapr-unprovision.yml
+- import_playbook: sites/mapr-configure.yml
 

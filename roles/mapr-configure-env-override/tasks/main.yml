@@ -5,3 +5,6 @@
 - name: Set MapR User
   lineinfile: dest=/opt/mapr/conf/env_override.sh regexp="^export MAPR_USER" line="export MAPR_USER={{ mapr_user }}" mode=0644 create=yes owner="{{ mapr_user }}" group="{{ mapr_group }}"
   when: mapr_user is defined
+- name: Set MAPR_ECOSYSTEM_LOGIN_OPTS to hybrid
+  lineinfile: dest=/opt/mapr/conf/env_override.sh regexp="^export MAPR_ECOSYSTEM_LOGIN_OPTS" line="export MAPR_ECOSYSTEM_LOGIN_OPTS=*hybryd*" mode=0644 create=yes owner="{{ mapr_user }}" group="{{ mapr_group }}"
+  when: mapr_user is defined

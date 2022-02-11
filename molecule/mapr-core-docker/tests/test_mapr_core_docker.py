@@ -61,66 +61,6 @@ def test_service_started(host):
     assert host.service("mapr-zookeeper").is_running
     assert host.service("mapr-warden").is_running
 
-
-def test_yarn_config_with_kerberos(host):
-    vars = host.ansible.get_variables()
-    f = host.file("/opt/mapr/hadoop/hadoop-2.7.0/etc/hadoop/yarn-site.xml")
-    assert f.exists
-    assert """<property>
-    <name>yarn.resourcemanager.ha.custom-ha-enabled</name>
-    <value>true</value>
-    <description>MapR Zookeeper based RM Reconnect Enabled. If this is true, set the failover proxy to be the class MapRZKBasedRMFailoverProxyProvider</description>
-  </property>
-  <property>
-    <name>yarn.client.failover-proxy-provider</name>
-    <value>org.apache.hadoop.yarn.client.MapRZKBasedRMFailoverProxyProvider</value>
-    <description>Zookeeper based reconnect proxy provider. Should be set if and only if mapr-ha-enabled property is true.</description>
-  </property>
-  <property>
-    <name>yarn.resourcemanager.recovery.enabled</name>
-    <value>true</value>
-    <description>RM Recovery Enabled</description>
-  </property>
-  <property>
-   <name>yarn.resourcemanager.ha.custom-ha-rmaddressfinder</name>
-   <value>org.apache.hadoop.yarn.client.MapRZKBasedRMAddressFinder</value>
-  </property>
-
-  <property>
-    <name>yarn.acl.enable</name>
-    <value>true</value>
-  </property>
-  
-
-  <!-- :::CAUTION::: DO NOT EDIT ANYTHING ON OR ABOVE THIS LINE -->
-    <!-- fix for Oozie when user different than mapr -->
-    <property>
-        <name>yarn.resourcemanager.principal</name>
-        <value>mapr</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.container-executor.class</name>
-        <value>org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.linux-container-executor.group</name>
-        <value>mapr</value>
-    </property>
-    <property>
-        <name>yarn.log-aggregation-enable</name>
-        <value>false</value>
-    </property>
-    <property>
-        <name>yarn.scheduler.maximum-allocation-mb</name>
-        <value>131072</value>
-        <description>The maximum allocation for every container request at the RM, in MBs. Memory requests higher than this will throw a InvalidResourceRequestException.</description>
-    </property>
-    <property>
-        <name>yarn.resourcemanager.am.max-attempts</name>
-        <value>4</value>
-        <description>The maximum number of application attempts</description>
-    </property>""" in f.content
-
 def test_hadoop_fs(host):
     cmd = host.run("echo mapr | maprlogin password -user mapr")
     assert "MapR credentials of user 'mapr' for cluster 'molecule-cluster' are written to" in cmd.stdout

@@ -107,43 +107,5 @@
         </description>
     </property>
     {% endif %}
-    {% if mapr_security == 'kerberos' %}
-    <property>
-        <name>yarn.nodemanager.keytab</name>
-        <value>/opt/mapr/conf/mapr.keytab</value>    <!-- path to the YARN keytab -->
-    </property>
-    <property>
-        <name>yarn.nodemanager.principal</name>
-        <value>{{ mapr_user }}/_HOST@{{ mapr_kerberos_realm }}</value>
-    </property>
-    <property>
-        <name>yarn.resourcemanager.keytab</name>
-        <value>/opt/mapr/conf/mapr.keytab</value>    <!-- path to the YARN keytab -->
-    </property>
-    <property>
-        <name>yarn.resourcemanager.principal</name>
-        <value>{{ mapr_user }}/_HOST@{{ mapr_kerberos_realm }}</value>
-    </property>
-    <property>
-        <name>yarn.resourcemanager.webapp.spnego-keytab-file</name>
-        <value>/opt/mapr/conf/mapr.keytab</value>
-    </property>
-    <property>
-        <name>yarn.resourcemanager.webapp.spnego-principal</name>
-        <value>HTTP/_HOST@{{ mapr_kerberos_realm }}</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.webapp.spnego-keytab-file</name>
-        <value>/opt/mapr/conf/mapr.keytab</value>
-    </property>
-    <property>
-        <name>yarn.nodemanager.webapp.spnego-principal</name>
-        <value>HTTP/_HOST@{{ mapr_kerberos_realm }}</value>
-    </property>
-    <property>
-        <name>yarn.mapr.ticket.expiration</name>
-        <value>3154000000000</value>
-    </property>
-    {% endif %}
 
 </configuration>

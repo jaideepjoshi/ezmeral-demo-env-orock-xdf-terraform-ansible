@@ -1,0 +1,97 @@
+- import_playbook: mapr-include-vars.yml
+
+- name: Make MCS url
+  hosts: mapr-core
+  become: true
+  become_user: '{{ mapr_user }}'
+
+  tasks:
+    - set_fact:
+        url: "https://{{ groups['mapr-mcs'][0] }}:8443"
+      delegate_to: "{{ item }}"
+      with_items: "{{ play_hosts }}"
+
+    - name: Debug
+      debug:
+        msg: "{{ url }}"
+
+    - name: Install pexpect python package
+      pip:
+        name: pexpect
+
+    - name: Case insensitive password string match
+      ansible.builtin.expect:
+        command: "maprlogin password"
+        responses:
+          "[Password for user '{{ mapr_user }}' at cluster '{{ cluster_name }}': ]": "{{ mapr_user_passwd }}"
+      # you don't want to show passwords in your logs
+#      no_log: true
+
+
+# 1.	Assign labels hdd and nvme to respective disks (nvme disks with label nvme and hdd disks with label hdd)
+# Command to do so : maprcli disk setlabel -host <HostName> -disks <disknames separated by  commad> -label <label name>  -json
+- name: Label disks
+  hosts: mapr-fileserver:mapr-nodemanager:mapr-cldb
+  roles:
+    - ../roles/mapr-disk-label
+
+# 2.	Create a volume with maprcli command with tiering enable.
+# maprcli volume create -name vel -path /vel --containerallocationfactor 40 -type rw -ecenable true -ecscheme "8+4" -eclabel hdd -label nvme -nslabel nvme  -tieringenable true -dare false -json
+#
+#      and go to MCS UI and disable data at wire encryption.
+- name: Create a volume with maprcli command with tiering enable and disable data at wire encription
+  hosts: mapr-cldb[0]
+  roles:
+    - ../roles/mapr-volume-create
+
+# 3.	Setcompression off for the volume.
+  # hadoop mfs -setcompression off /volume-name
+- name: Setcompression off for the volume.
+  hosts: mapr-cldb[0]
+  roles:
+    - ../roles/mapr-hdfs-volume-compression
+
+# Different changes that are done in POC cluster
+# 1.	Changes to mfs.conf
+- name: Changes to mfs.conf
+  hosts: mapr-core
+  roles:
+    - ../roles/mapr-mfs-conf-change
+
+# 2.	Update RPC threads for NFS server
+- name: Update RPC threads for NFS server
+  hosts: mapr-core
+  roles:
+    - ../roles/mapr-nfs-conf-change
+
+# 3.	Only on datanodes (/opt/mapr/conf/warden.conf)
+- name: Changes to warden.conf on datanodes
+  hosts: mapr-nodemanager
+  roles:
+    - ../roles/mapr-warden-conf-change
+
+# 4.	Make offload faster
+- name: Changes to mastgateway.conf
+  hosts: mapr-mastgateway
+  roles:
+    - ../roles/mapr-mastgateway-conf-change
+
+# 5.	Only on cldb nodes (/opt/mapr/conf/warden.conf)
+- name: Changes to warden.conf on CLDB nodes
+  hosts: mapr-cldb
+  roles:
+    - ../roles/mapr-cldb-warden-conf-change
+
+# 6.	maprcli node modify -nodes <nodename> -numSpsPerInstance 1  (on single node)
+- name: Set numSpsPerInstance=1
+  hosts: mapr-cldb[0]
+  roles:
+    - ../roles/mapr-cldb-set-numSpsPerInstance
+
+# 6.	To do it on all the nodes
+    #maprcli config save -values {multimfs.numsps.perinstance:1}
+    #maprcli config save -values {multimfs.numinstances.pernode:6}
+- name: Save multimfs config
+  hosts: mapr-core
+  roles:
+    - ../roles/mapr-multimfs-config-save

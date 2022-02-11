@@ -2,9 +2,11 @@
 - name: Install NSCD
   vars:
     packages_RedHat: ['nscd']
-  package: name={{ item }} state=present
+    packages_Debian: ['nscd']
+#  package: name={{ item }} state=present
+  package: name={{ item }} state=absent
   with_items: "{{ vars['packages_' + ansible_os_family] }}"
-- name: Configure nscd.conf
-  template: src=nscd.conf dest=/etc/nscd.conf
-- name: Enable and start the NSCD service
-  service: name=nscd state=restarted enabled=yes
+#- name: Configure nscd.conf
+#  template: src=nscd.conf dest=/etc/nscd.conf
+#- name: Enable and start the NSCD service
+#  service: name=nscd state=restarted enabled=yes

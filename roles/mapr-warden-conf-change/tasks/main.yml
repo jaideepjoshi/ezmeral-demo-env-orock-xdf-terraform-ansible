@@ -1,0 +1,12 @@
+---
+
+- name: Changes to warden.conf
+  lineinfile:
+    path: /opt/mapr/conf/warden.conf
+    search_string: "{{ item.regexp }}"
+    line: "{{ item.replace }}"
+    state: present
+  with_items:
+    - { regexp: '#?service.command.mfs.heapsize.min.*', replace: 'service.command.mfs.heapsize.min=20000' }
+    - { regexp: '#?service.command.mfs.heapsize.max.*', replace: 'service.command.mfs.heapsize.max=20000' }
+

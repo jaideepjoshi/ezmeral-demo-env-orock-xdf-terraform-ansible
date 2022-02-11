@@ -1,0 +1,11 @@
+---
+
+- name: maprcli config save -values {multimfs.numsps.perinstance:1}
+  become: true
+  become_user: '{{ mapr_user }}'
+  shell: "maprcli config save -values {multimfs.numsps.perinstance:1}"
+
+- name: maprcli config save -values {multimfs.numinstances.pernode:6}
+  become: true
+  become_user: '{{ mapr_user }}'
+  shell: "maprcli config save -values {multimfs.numinstances.pernode:6}"

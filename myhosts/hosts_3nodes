@@ -36,7 +36,6 @@ node3
 [mapr-cldb]
 node1
 node2
-node3
 
 # Kafka API for MapR-Streams
 [mapr-kafka]

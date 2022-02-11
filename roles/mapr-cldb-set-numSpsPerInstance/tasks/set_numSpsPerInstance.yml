@@ -1,0 +1,9 @@
+---
+- set_fact:
+    outer_loop: "{{ item }}"
+    node: "{{ item }}"
+
+- name: maprcli node modify -nodes <nodename> -numSpsPerInstance 1
+  become: true
+  become_user: '{{ mapr_user }}'
+  shell: "maprcli node modify -nodes {{ node }} -numSpsPerInstance 1"

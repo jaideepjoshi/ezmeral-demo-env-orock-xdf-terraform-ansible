@@ -6,13 +6,10 @@
 
 #[all:vars]
 #cluster_name=demo.mapr.com
-#security_all=kerberos
+#security_all=maprsasl
 
 [common]
 10.0.0.8 ansible_user=ec2-user ansible_become=yes ansible_become_method=sudo
-
-[ext-kerberos:children]
-#common
 
 [mapr-core:children]
 common

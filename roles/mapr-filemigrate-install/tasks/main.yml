@@ -2,12 +2,13 @@
 # Install File Migrate Service
 - name: Install mapr-filemigrate
   package: name=mapr-filemigrate state=present
+  when: ansible_os_family != 'Debian'
   register: filemigrate_result
 - name: Configure.sh -R
   shell: /opt/mapr/server/configure.sh -R
-  when: filemigrate_result.changed
+  when: ansible_os_family != 'Debian' and filemigrate_result.changed
 - pause: seconds=10
-  when: filemigrate_result.changed
+  when: ansible_os_family != 'Debian' and filemigrate_result.changed
 - name: Restart File Migrate Service
   shell: "maprcli node services -name filemigrate -action restart -nodes {{ ansible_fqdn }}"
   register: task_result
@@ -17,4 +18,4 @@
   ignore_errors: yes
   environment:
     MAPR_TICKETFILE_LOCATION: /opt/mapr/conf/mapruserticket
-  when: filemigrate_result.changed
+  when: ansible_os_family != 'Debian' and filemigrate_result.changed

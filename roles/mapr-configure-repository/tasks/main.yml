@@ -33,23 +33,25 @@
 #  when: ansible_os_family == 'RedHat' and mapr_patch_url is defined
 
 # Ubuntu / Debian
-#- name: Import RPM key for Ubuntu
-#  apt_key: state=present url={{ mapr_gpg_url }}
-#  when: ansible_os_family == 'Debian'
-#- name: Create MapR Releases Repository for Ubuntu
-#  apt_repository:
-#    repo: "deb [trusted=yes] {{ mapr_release_url }}/ubuntu/ binary bionic"
-#    state: present
-#    update_cache: yes
-#    validate_certs: "{{ mapr_gpg_check }}"
-#  when: ansible_os_family == 'Debian'
-#- name: Create MapR Ecosystem Repository for Ubuntu
-#  apt_repository:
-#    repo: "deb [trusted=yes] {{ mapr_ecosystem_url }}/ubuntu/ binary bionic"
-#    state: present
-#    update_cache: yes
-#    validate_certs: "{{ mapr_gpg_check }}"
-#  when: ansible_os_family == 'Debian'
+- name: Import RPM key for Ubuntu
+  apt_key: state=present url={{ mapr_gpg_url }}
+#  environment:
+#    http_proxy: http://web-proxy.corp.hpecorp.net:8080
+  when: ansible_os_family == 'Debian'
+- name: Create MapR Releases Repository for Ubuntu
+  apt_repository:
+    repo: "deb {{ mapr_release_url }}/ubuntu/ binary trusty"
+    state: present
+    update_cache: yes
+    validate_certs: "{{ mapr_gpg_check }}"
+  when: ansible_os_family == 'Debian'
+- name: Create MapR Ecosystem Repository for Ubuntu
+  apt_repository:
+    repo: "deb {{ mapr_ecosystem_url }}/ubuntu/ binary trusty"
+    state: present
+    update_cache: yes
+    validate_certs: "{{ mapr_gpg_check }}"
+  when: ansible_os_family == 'Debian'
 #- name: Create MapR Patch Repository for Ubuntu
 #  apt_repository:
 #    repo: "deb {{ mapr_patch_url }}/ubuntu/ dists binary"
@@ -57,9 +59,9 @@
 #    update_cache: yes
 #    validate_certs: yes
 #  when: ansible_os_family == 'Debian' and mapr_patch_url is defined
-#- name: Update cache for Ubuntu
-#  apt: update_cache=yes
-#  when: ansible_os_family == 'Debian'
+- name: Update cache for Ubuntu
+  apt: update_cache=yes
+  when: ansible_os_family == 'Debian'
 
 # Suse
 - name: Import RPM key for Suse

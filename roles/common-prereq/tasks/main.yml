@@ -3,6 +3,17 @@
   fail: msg="Only Suse, Debian, Ubuntu, RedHat and CentOS are supported"
   when: ansible_os_family not in ["Suse", "RedHat", "Debian"]
 
+- name: Update cache on Debian (the equivalent of "apt-get update")
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Update cache on Suse (the equivalent of "zypper refresh")
+  zypper_repository:
+    repo: '*'
+    runrefresh: yes
+  when: ansible_os_family == 'Suse'
+
 - name: Ensure permissions for PAM config /etc/pam.d/system-auth-pc
   file:
     path: /etc/pam.d/system-auth-pc

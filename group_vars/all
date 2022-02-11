@@ -1,7 +1,7 @@
 mapr_release_url: http://jai-ecp-demo-externaldf-host-1.demo.com/xdf700/ubuntu 
 mapr_ecosystem_url: http://jai-ecp-demo-externaldf-host-1.demo.com/eep810/ubuntu 
 mapr_gpg_url: http://package.mapr.com/releases/pub/maprgpg.key
-mapr_gpg_check: no
+mapr_gpg_check: yes
 
 # JDK choose: openjdk11 or oraclejdk18
 jdk: openjdk11

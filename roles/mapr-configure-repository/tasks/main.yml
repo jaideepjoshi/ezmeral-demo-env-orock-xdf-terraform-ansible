@@ -38,14 +38,14 @@
   when: ansible_os_family == 'Debian'
 - name: Create MapR Releases Repository for Ubuntu
   apt_repository:
-    repo: "deb [trusted=yes] {{ mapr_release_url }}/ubuntu/ binary trusty"
+    repo: "deb [trusted=yes] {{ mapr_release_url }}/ubuntu/ binary bionic"
     state: present
     update_cache: no
     validate_certs: "{{ mapr_gpg_check }}"
   when: ansible_os_family == 'Debian'
 - name: Create MapR Ecosystem Repository for Ubuntu
   apt_repository:
-    repo: "deb [trusted=yes] {{ mapr_ecosystem_url }}/ubuntu/ binary trusty"
+    repo: "deb [trusted=yes] {{ mapr_ecosystem_url }}/ubuntu/ binary bionic"
     state: present
     update_cache: no
     validate_certs: "{{ mapr_gpg_check }}"

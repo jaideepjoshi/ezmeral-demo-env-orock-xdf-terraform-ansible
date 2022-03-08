@@ -11,7 +11,7 @@ jdk_folder: /usr/lib/jvm/java-11-openjdk-11.0.3.7-0.el7_6.x86_64
 oracle_jdk_url: http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz
 use_ntp: True
 
-hadoop_version: 2.7.5
+hadoop_version: 2.7.4
 cluster_name: demo.mapr.com
 # required when aborted in wrong stage or changing security type
 force_zookeeper_restart: True

@@ -1,9 +1,9 @@
 mapr_release_url: https://package.mapr.hpe.com/releases/v7.0.0
-#mapr_ecosystem_url: https://package.mapr.hpe.com/releases/MEP/MEP-8.1/
+mapr_ecosystem_url: https://package.mapr.hpe.com/releases/MEP/MEP-8.1/
 #mapr_release_url: http://package.mapr.com/releases/v6.2.0
 #mapr_ecosystem_url: http://package.mapr.com/releases/MEP/MEP-7.0.1/
 mapr_gpg_url: http://package.mapr.com/releases/pub/maprgpg.key
-mapr_gpg_check: no
+mapr_gpg_check: yes
 
 # JDK choose: openjdk11 or oraclejdk18
 jdk: openjdk11

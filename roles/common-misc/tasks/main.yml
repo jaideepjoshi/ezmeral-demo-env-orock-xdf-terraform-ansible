@@ -7,7 +7,7 @@
     # syslinux-utils is for gethostip, libpython is required for collectd
     packages_Debian: ['mc',
                       'wget',
-                      'python-mysqldb',
+                      'python3-mysqldb',
                       'openssl',
                       'syslinux-utils',
                       'libpython2.7']

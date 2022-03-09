@@ -4,6 +4,7 @@
   fetch: src="/opt/mapr/conf/{{ item }}" dest="{{ local_tmp_path }}/{{ item }}" flat=yes
   with_items:
   - maprserverticket
+  - cldb.key
 - name: Copy MapR keystores truststores to local
   fetch: src="/opt/mapr/conf/{{ item }}" dest="{{ local_tmp_path }}/{{ item }}" flat=yes
   with_items:
@@ -33,3 +34,6 @@
   - root-ca.pem
   - signing-ca.pem
   when: not https_custom_certs_enabled
+- name: Copy DARE master key to local
+  fetch: src=/opt/mapr/conf/dare.master.key dest="{{ local_tmp_path }}/dare.master.key" flat=yes
+  when: security_encryption_rest

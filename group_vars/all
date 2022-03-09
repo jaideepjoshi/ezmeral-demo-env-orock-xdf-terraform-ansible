@@ -177,8 +177,8 @@ mapr_passwd: $6$GzlcP5ei$E6P9QM40O6KJFLZ3wMcg3jzQBNxGXrf8yc77CbCmf0KtFSxK0mpCPar
 mapr_user_passwd: m0bil3
 
 #disks: /dev/nvme1n1,/dev/nvme2n1,/dev/nvme3n1
-disks: /dev/sdb,/dev/sdc
-#disks: /dev/sdb
+#disks: /dev/sdb,/dev/sdc
+disks: /dev/sdb
 disk_storage_pool_size: 2
 disk_labels: hdd,nvme
 

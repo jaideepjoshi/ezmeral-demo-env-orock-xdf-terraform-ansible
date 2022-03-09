@@ -34,5 +34,5 @@
   - signing-ca.pem
   when: not https_custom_certs_enabled
 - name: Copy DARE master key to local
-  copy: src=/opt/mapr/conf/tokens/ dest="{{ local_tmp_path }}/tokens/" flat=yes
+  copy: src=/opt/mapr/conf/tokens/ dest="{{ local_tmp_path }}/tokens/" remote_src=yes directory_mode=yes flat=yes
   when: security_encryption_rest
